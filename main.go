@@ -54,9 +54,9 @@ func evaluateInputs() (Args, []string) {
 
 	// hardcode for now
 	sites = append(sites, "arlingsattel")
-	sites = append(sites, "hengstpass")
-	sites = append(sites, "hieflerstutzen")
-	sites = append(sites, "menaueralm")
+	//sites = append(sites, "hengstpass")
+	//sites = append(sites, "hieflerstutzen")
+	//sites = append(sites, "menaueralm")
 
 	return args, sites
 }
