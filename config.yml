@@ -1,0 +1,8 @@
+baseurl: "https://www.bogner-lehner.eu/lwd"
+timeout: 10
+sites:
+- arlingsattel
+- hengstpass
+- hieflerstutzen
+- menaueralm
+

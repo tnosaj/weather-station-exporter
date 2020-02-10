@@ -10,8 +10,9 @@ import (
 )
 
 type weatherStationCollector struct {
-	up    prometheus.Gauge
-	sites []string
+	up      prometheus.Gauge
+	baseurl string
+	sites   []string
 }
 
 type promMetric struct {
@@ -22,14 +23,15 @@ type promMetric struct {
 	LabelDesc []string
 }
 
-func NewMetricCollector(sites []string, uri string, timeout int) *weatherStationCollector {
+func NewMetricCollector(sites []string, url string, timeout int) *weatherStationCollector {
 	return &weatherStationCollector{
 		up: prometheus.NewGauge(
 			prometheus.GaugeOpts{
 				Name: "up",
 				Help: "Dummy metric.",
 			}),
-		sites: sites,
+		baseurl: url,
+		sites:   sites,
 	}
 }
 
@@ -44,7 +46,7 @@ func (collector *weatherStationCollector) collect(ch chan<- prometheus.Metric) e
 	var errors []string
 	for _, site := range collector.sites {
 		log.Debugf("Collecting - %s", site)
-		cerr := getSiteMetrics(site, ch)
+		cerr := getSiteMetrics(site, collector.baseurl, ch)
 		if cerr != nil {
 			log.Errorf("Error collecting site - %s", site)
 			errors = append(errors, fmt.Sprintf("Error getting cluster based metrics: %s", cerr))

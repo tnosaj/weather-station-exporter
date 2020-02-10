@@ -13,9 +13,9 @@ import (
 )
 
 // the iframe is "https://www.bogner-lehner.eu/lwd/SITENAME_akt.php"
-func getSiteMetrics(site string, ch chan<- prometheus.Metric) error {
+func getSiteMetrics(site string, baseurl string, ch chan<- prometheus.Metric) error {
 	log.Debugf("Fetching for site - %s", site)
-	url := fmt.Sprintf("https://www.bogner-lehner.eu/lwd/%s_akt.php", site)
+	url := fmt.Sprintf("%s/%s_akt.php", baseurl, site)
 	resp, err := http.Get(url)
 
 	if err != nil {
